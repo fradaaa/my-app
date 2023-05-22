@@ -1,10 +1,42 @@
+import { useState } from "react";
 import { Button, Col, Container, Image, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { PostT } from "../types";
+import { useAppDispatch } from "../redux/hooks";
+import { CommentT, PostT } from "../types";
+import CommentItem from "./CommentItem";
+import { requestPostComments } from "../redux/slices/postsSlice";
 
-const PostItem = ({ body, title, userId }: PostT) => {
+type PostP = PostT & {
+  comments: CommentT[];
+  isCommentsLoading: boolean;
+  isCommentsError: null | string;
+};
+
+const PostItem = ({
+  body,
+  title,
+  userId,
+  id: postId,
+  comments,
+  isCommentsLoading,
+  isCommentsError,
+}: PostP) => {
+  const dispatch = useAppDispatch();
+  const [showComments, setShowComments] = useState(false);
+
+  const loadComments = () => {
+    if (isCommentsLoading) return;
+
+    if (showComments) {
+      setShowComments(false);
+    } else {
+      dispatch(requestPostComments(postId));
+      setShowComments(true);
+    }
+  };
+
   return (
-    <Container className="d-flex flex-column align-items-center border p-4 rounded">
+    <Container className="border p-4 rounded">
       <Row>
         <Col className="flex-grow-2">
           <h2>{title}</h2>
@@ -22,7 +54,22 @@ const PostItem = ({ body, title, userId }: PostT) => {
           </Link>
         </Col>
       </Row>
-      <Button>Comments</Button>
+      <Container className="d-flex flex-column align-items-center border-top pt-2">
+        <Button onClick={loadComments}>Comments</Button>
+        {isCommentsLoading ? (
+          <div>Loading...</div>
+        ) : isCommentsError ? (
+          <div>{isCommentsError}</div>
+        ) : (
+          showComments && (
+            <div className="d-flex flex-column gap-4">
+              {comments.map(({ email, body, id: commentId }) => (
+                <CommentItem key={commentId} email={email} body={body} />
+              ))}
+            </div>
+          )
+        )}
+      </Container>
     </Container>
   );
 };

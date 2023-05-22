@@ -5,7 +5,9 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { requestPosts } from "../redux/slices/postsSlice";
 
 const Posts = () => {
-  const { posts, error, pending } = useAppSelector((state) => state.posts);
+  const { posts, isPostsLoading, isPostsError } = useAppSelector(
+    (state) => state.posts
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -14,10 +16,10 @@ const Posts = () => {
 
   return (
     <Container className="py-2">
-      {pending ? (
+      {isPostsLoading ? (
         <div>Loading...</div>
-      ) : error ? (
-        <div>{error}</div>
+      ) : isPostsError ? (
+        <div>{isPostsError}</div>
       ) : (
         <div className="d-flex flex-column gap-4">
           {posts.map((post) => (
