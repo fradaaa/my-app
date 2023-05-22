@@ -18,7 +18,7 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: "/users/:userId",
+        path: "/user/:userId",
         element: <User />,
       },
     ],
@@ -28,7 +28,9 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <div className="bg-dark text-white min-vh-100">
+        <RouterProvider router={router} />
+      </div>
     </Provider>
   );
 };

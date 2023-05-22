@@ -11,7 +11,7 @@ const Header = () => {
   return (
     <>
       <Navbar
-        className="border-bottom"
+        className="border-bottom sticky-top"
         collapseOnSelect
         bg="dark"
         expand={false}

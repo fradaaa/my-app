@@ -1,21 +1,35 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { CommentT, PostT } from "../../types";
+import { CommentT, PostT, UserT } from "../../types";
 
 type State = {
+  user: UserT | null;
   posts: (PostT & {
     comments: CommentT[];
     isCommentsLoading: boolean;
     isCommentsError: null | string;
   })[];
   isPostsLoading: boolean;
-  isPostsError: null | string;
+  isUserLoading: boolean;
+  isLoadingError: null | string;
 };
 
 const initialState: State = {
+  user: null,
   posts: [],
   isPostsLoading: false,
-  isPostsError: null,
+  isUserLoading: false,
+  isLoadingError: null,
 };
+
+const convertPosts = (posts: PostT[]) =>
+  posts.map(({ body, title, ...rest }) => ({
+    ...rest,
+    body: body[0].toUpperCase() + body.substring(1),
+    title: title[0].toUpperCase() + title.substring(1),
+    comments: [],
+    isCommentsError: null,
+    isCommentsLoading: false,
+  }));
 
 export const postsSlice = createSlice({
   name: "main",
@@ -23,22 +37,15 @@ export const postsSlice = createSlice({
   reducers: {
     requestPosts: (state) => {
       state.isPostsLoading = true;
-      state.isPostsError = null;
+      state.isLoadingError = null;
     },
     setPosts: (state, action: PayloadAction<PostT[]>) => {
-      state.posts = action.payload.map(({ body, title, ...rest }) => ({
-        ...rest,
-        body: body[0].toUpperCase() + body.substring(1),
-        title: title[0].toUpperCase() + title.substring(1),
-        comments: [],
-        isCommentsError: null,
-        isCommentsLoading: false,
-      }));
+      state.posts = convertPosts(action.payload);
       state.isPostsLoading = false;
-      state.isPostsError = null;
+      state.isLoadingError = null;
     },
     requestPostsFail: (state, action: PayloadAction<string>) => {
-      state.isPostsError = action.payload;
+      state.isLoadingError = action.payload;
       state.isPostsLoading = false;
     },
     requestPostComments: (state, action: PayloadAction<number>) => {
@@ -86,6 +93,24 @@ export const postsSlice = createSlice({
       );
       state.posts = newPosts;
     },
+    requestUser: (state, action: PayloadAction<string>) => {
+      state.isUserLoading = true;
+      state.isLoadingError = null;
+    },
+    setUserData: (
+      state,
+      action: PayloadAction<{ user: UserT; userPosts: PostT[] }>
+    ) => {
+      const { user, userPosts } = action.payload;
+      state.user = user;
+      state.posts = convertPosts(userPosts);
+      state.isUserLoading = false;
+      state.isLoadingError = null;
+    },
+    requestUserFail: (state, action: PayloadAction<string>) => {
+      state.isLoadingError = action.payload;
+      state.isUserLoading = false;
+    },
   },
 });
 
@@ -96,6 +121,9 @@ export const {
   requestPostComments,
   setPostComments,
   requestPostCommentsFail,
+  requestUser,
+  setUserData,
+  requestUserFail,
 } = postsSlice.actions;
 
 export default postsSlice.reducer;
