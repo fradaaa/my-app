@@ -28,7 +28,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <Provider store={store}>
-      <div className="bg-dark text-white min-vh-100">
+      <div className="d-flex flex-column bg-dark text-white min-vh-100">
         <RouterProvider router={router} />
       </div>
     </Provider>

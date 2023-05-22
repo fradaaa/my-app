@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Container } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import { PostItem } from "../components";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { requestPosts } from "../redux/slices/postsSlice";
@@ -15,9 +15,13 @@ const Posts = () => {
   }, [dispatch]);
 
   return (
-    <Container className="py-2">
+    <Col className="py-2">
       {isPostsLoading ? (
-        <div>Loading...</div>
+        <div className="d-flex justify-content-center align-items-center h-100">
+          <div className="spinner-border" role="status">
+            <span className="sr-only"></span>
+          </div>
+        </div>
       ) : isLoadingError ? (
         <div>{isLoadingError}</div>
       ) : (
@@ -27,7 +31,7 @@ const Posts = () => {
           ))}
         </div>
       )}
-    </Container>
+    </Col>
   );
 };
 

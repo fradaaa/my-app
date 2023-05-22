@@ -25,7 +25,11 @@ const User = () => {
   return (
     <div className="position-relative">
       {isUserLoading ? (
-        <div>Loading...</div>
+        <div className="d-flex justify-content-center align-items-center h-100 my-5">
+          <div className="spinner-border" role="status">
+            <span className="sr-only"></span>
+          </div>
+        </div>
       ) : isLoadingError ? (
         <div>{isLoadingError}</div>
       ) : (
