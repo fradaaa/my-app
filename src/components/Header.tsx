@@ -1,16 +1,33 @@
+import { useState } from "react";
 import { Col, Image, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import { Link, Outlet } from "react-router-dom";
 
 const Header = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   return (
     <>
-      <Navbar collapseOnSelect bg="dark" expand={false} variant="dark">
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar
+        className="border-bottom"
+        collapseOnSelect
+        bg="dark"
+        expand={false}
+        variant="dark"
+      >
+        <Navbar.Toggle
+          aria-controls="responsive-navbar-nav"
+          onClick={handleShow}
+        />
         <Navbar.Offcanvas
           id="responsive-navbar-nav"
           placement="start"
           bg="dark"
           className="bg-dark text-white"
+          show={show}
+          onHide={handleClose}
         >
           <Offcanvas.Header className="align-items-start">
             <Image
@@ -26,17 +43,19 @@ const Header = () => {
           </Offcanvas.Header>
           <Offcanvas.Body className="border-top">
             <Nav>
-              <Nav.Link as={Link} to="/" active={true}>
+              <Nav.Link as={Link} to="/" onClick={handleClose}>
                 Posts
               </Nav.Link>
-              <Nav.Link as={Link} to="/about">
+              <Nav.Link as={Link} to="/about" onClick={handleClose}>
                 About
               </Nav.Link>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
       </Navbar>
-      <Outlet />
+      <Col className="bg-dark text-white">
+        <Outlet />
+      </Col>
     </>
   );
 };
