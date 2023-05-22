@@ -3,14 +3,14 @@ import { Button, Container } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { PostItem } from "../components";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { requestUser } from "../redux/slices/postsSlice";
+import { requestUser } from "../redux/slices/mainSlice";
 import { IoArrowBackSharp } from "react-icons/io5";
 
 const User = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
   const { user, posts, isUserLoading, isLoadingError } = useAppSelector(
-    (state) => state.posts
+    (state) => state.main
   );
   const dispatch = useAppDispatch();
 

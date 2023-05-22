@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch } from "../redux/hooks";
 import { CommentT, PostT } from "../types";
 import CommentItem from "./CommentItem";
-import { requestPostComments } from "../redux/slices/postsSlice";
+import { requestPostComments } from "../redux/slices/mainSlice";
 
 type PostP = PostT & {
   comments: CommentT[];

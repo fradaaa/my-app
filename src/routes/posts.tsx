@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { Col } from "react-bootstrap";
 import { PostItem } from "../components";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
-import { requestPosts } from "../redux/slices/postsSlice";
+import { requestPosts } from "../redux/slices/mainSlice";
 
 const Posts = () => {
   const { posts, isPostsLoading, isLoadingError } = useAppSelector(
-    (state) => state.posts
+    (state) => state.main
   );
   const dispatch = useAppDispatch();
 

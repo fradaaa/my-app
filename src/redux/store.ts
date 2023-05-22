@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import postsSlice from "./slices/postsSlice";
+import mainSlice from "./slices/mainSlice";
 import createSagaMiddleware from "redux-saga";
 import { rootSaga } from "./sagas";
 
@@ -7,7 +7,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: {
-    posts: postsSlice,
+    main: mainSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),

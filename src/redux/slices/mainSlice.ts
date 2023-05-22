@@ -31,7 +31,7 @@ const convertPosts = (posts: PostT[]) =>
     isCommentsLoading: false,
   }));
 
-export const postsSlice = createSlice({
+export const mainSlice = createSlice({
   name: "main",
   initialState,
   reducers: {
@@ -124,6 +124,6 @@ export const {
   requestUser,
   setUserData,
   requestUserFail,
-} = postsSlice.actions;
+} = mainSlice.actions;
 
-export default postsSlice.reducer;
+export default mainSlice.reducer;
