@@ -34,20 +34,21 @@ const User = () => {
         <div>{isLoadingError}</div>
       ) : (
         user && (
-          <div className="d-flex flex-column gap-4">
-            <Container>
+          <div className="d-flex flex-column align-items-center gap-4">
+            <Container className="border rounded mt-2">
               <h1>Name: {user.name}</h1>
               <h2>Email: {user.email}</h2>
               <h2>Username: {user.username}</h2>
               <h2>Phone: {user.phone}</h2>
             </Container>
+            <p className="fs-3">Posts by user</p>
             {posts.map((post) => (
               <PostItem key={post.id} {...post} />
             ))}
             <Button
               onClick={goToHomePage}
-              className="position-fixed top-0 end-0 translate-middle"
-              style={{ marginTop: "50px", marginRight: "-10px" }}
+              className="d-flex position-fixed top-0 end-0 translate-middle"
+              style={{ marginTop: "100px", marginRight: "-10px" }}
             >
               <IoArrowBackSharp />
             </Button>
