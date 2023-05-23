@@ -18,6 +18,7 @@ const Header = () => {
         variant="dark"
       >
         <Navbar.Toggle
+          className="ms-2"
           aria-controls="responsive-navbar-nav"
           onClick={handleShow}
         />
@@ -25,7 +26,7 @@ const Header = () => {
           id="responsive-navbar-nav"
           placement="start"
           bg="dark"
-          className="bg-dark text-white"
+          className="bg-dark text-white border-end"
           show={show}
           onHide={handleClose}
         >
@@ -36,17 +37,22 @@ const Header = () => {
               height={128}
               roundedCircle
             />
-            <Col className="ms-5">
-              <Offcanvas.Title>Name</Offcanvas.Title>
-              <Offcanvas.Title>Email</Offcanvas.Title>
+            <Col className="ms-4">
+              <Offcanvas.Title>Ruslan</Offcanvas.Title>
+              <Offcanvas.Title>fradasec@gmail.com</Offcanvas.Title>
             </Col>
           </Offcanvas.Header>
           <Offcanvas.Body className="border-top">
             <Nav>
-              <Nav.Link as={Link} to="/" onClick={handleClose}>
+              <Nav.Link className="fs-4" as={Link} to="/" onClick={handleClose}>
                 Posts
               </Nav.Link>
-              <Nav.Link as={Link} to="/about" onClick={handleClose}>
+              <Nav.Link
+                className="fs-4"
+                as={Link}
+                to="/about"
+                onClick={handleClose}
+              >
                 About
               </Nav.Link>
             </Nav>

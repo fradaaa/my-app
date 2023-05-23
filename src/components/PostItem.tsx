@@ -54,7 +54,7 @@ const PostItem = ({
           </Link>
         </Col>
       </Row>
-      <Container className="d-flex flex-column align-items-center border-top pt-2">
+      <Container className="d-flex flex-column align-items-center border-top pt-2 mt-2">
         <Button onClick={loadComments}>Comments</Button>
         {isCommentsLoading ? (
           <div className="d-flex justify-content-center align-items-center h-100 my-5">
